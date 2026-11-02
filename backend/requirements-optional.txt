@@ -1,0 +1,17 @@
+# Kokoro neural TTS (Apache 2.0). Pulls in PyTorch (~2 GB). Downloads hexgrad/Kokoro-82M on first use.
+# Non-English voices may also need espeak-ng installed on the system.
+kokoro>=0.9
+soundfile>=0.12
+
+# Piper TTS (fast on CPU; needs a downloaded .onnx voice per language, see PIPER_VOICES)
+piper-tts>=1.2
+
+# Indic Parler-TTS (natural Tamil / Telugu / Hindi). Install with:
+#   pip install git+https://github.com/huggingface/parler-tts.git
+# then accept the model terms on Hugging Face and run `huggingface-cli login` (free account).
+
+# PostgreSQL instead of SQLite
+psycopg[binary]>=3.1
+
+# Tests
+pytest>=8

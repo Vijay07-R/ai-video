@@ -1,0 +1,36 @@
+# Local, zero-cost deployment.
+#   docker compose up --build            -> http://localhost:8000
+# ComfyUI and Ollama run natively on your PC (they need direct GPU access);
+# the container reaches them through host.docker.internal.
+services:
+  engine:
+    build: .
+    ports: ["8000:8000"]
+    env_file: [backend/.env]
+    environment:
+      DATA_DIR: /data
+      COMFYUI_URL: ${COMFYUI_URL:-http://host.docker.internal:8188}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      # The container cannot see your GPU, so tell the engine whether Wan video should be used:
+      AI_VIDEO_MODE: ${AI_VIDEO_MODE:-on}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes: ["engine-data:/data"]
+    restart: unless-stopped
+
+  # Optional extra workers for parallel projects: docker compose --profile scale up --scale worker=2
+  worker:
+    profiles: ["scale"]
+    build: .
+    command: ["python", "-m", "app.worker"]
+    env_file: [backend/.env]
+    environment:
+      DATA_DIR: /data
+      INLINE_WORKER: "false"
+      COMFYUI_URL: ${COMFYUI_URL:-http://host.docker.internal:8188}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      AI_VIDEO_MODE: ${AI_VIDEO_MODE:-on}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes: ["engine-data:/data"]
+
+volumes:
+  engine-data:
