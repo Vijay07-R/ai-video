@@ -55,7 +55,7 @@ export default function App() {
           Spending limit <b>$0</b>. Only free and local providers run.
         </div>
       </aside>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <header className="flex items-center justify-between border-b border-ink-800 px-4 py-3 md:hidden">
           <a href="#/" className="font-display text-lg">Animal Video Engine</a>
           <select className="input w-auto" value={active} onChange={(e) => (window.location.hash = `#/${e.target.value}`)}>

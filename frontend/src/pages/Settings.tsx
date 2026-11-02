@@ -36,7 +36,7 @@ export default function Settings() {
       <div className="card mt-6 space-y-2 text-sm text-sand-300">
         <div className="font-display text-lg text-sand-100">API keys</div>
         <p>API keys are never stored in the browser. Put them in <code className="text-mane-300">backend/.env</code> on the computer running the engine:</p>
-        <pre className="rounded-xl bg-ink-850 p-3 text-xs text-sand-200">GEMINI_API_KEY=your-free-key-from-aistudio.google.com</pre>
+        <pre className="overflow-x-auto rounded-xl bg-ink-850 p-3 text-xs text-sand-200">GEMINI_API_KEY=your-free-key-from-aistudio.google.com</pre>
         <p>Then restart the engine. The Free providers page shows whether each provider is ready.</p>
       </div>
     </div>
